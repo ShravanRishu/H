@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Happy Birthday Gittuu</title>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Pacifico', cursive;
+      background-color: #fff0f5;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      flex-direction: column;
+      padding: 10px;
+      box-sizing: border-box;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .envelope {
+      width: 180px;
+      height: 120px;
+      background: #f06292;
+      position: relative;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      user-select: none;
+    }
+
+    .envelope::before {
+      content: '';
+      position: absolute;
+      top: -60px;
+      left: 0;
+      width: 0;
+      height: 0;
+      border-left: 90px solid transparent;
+      border-right: 90px solid transparent;
+      border-bottom: 60px solid #f8bbd0;
+      border-radius: 10px;
+    }
+
+    .envelope-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      font-size: 16px;
+      text-align: center;
+    }
+
+    .card {
+      width: 280px;
+      height: 180px;
+      background: url('https://raw.githubusercontent.com/ShravanRishu/A/main/greeting-card-holiday-background-illustration-free-vector.jpg') center/cover no-repeat;
+      border: 2px dashed #c2185b;
+      text-align: center;
+      padding: 20px;
+      border-radius: 12px;
+      color: #c2185b;
+      font-size: 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      cursor: pointer;
+      user-select: none;
+      animation: fadeSlide 0.7s ease-out;
+    }
+
+    @keyframes fadeSlide {
+      from { opacity: 0; transform: translateY(50px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .cake-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      user-select: none;
+    }
+
+    .cake {
+      position: relative;
+      width: 300px;
+      height: 160px;
+      margin-top: 20px;
+    }
+
+    .layer {
+      position: absolute;
+      width: 100%;
+      height: 48px;
+      border-radius: 50% / 18%;
+      left: 0;
+    }
+
+    .layer1 { background-color: #5e3626; bottom: 0; z-index: 1; }
+    .layer2 { background-color: #fff3e2; bottom: 34px; z-index: 2; }
+    .layer3 { background-color: #f28b82; bottom: 68px; z-index: 3; }
+
+    .candles {
+      position: absolute;
+      bottom: 110px;
+      left: 20px;
+      right: 20px;
+      display: flex;
+      justify-content: space-around;
+      z-index: 4;
+    }
+
+    .candle {
+      width: 6px;
+      height: 30px;
+      background-color: #6fffd2;
+      position: relative;
+      border-radius: 2px;
+    }
+
+    .flame {
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 8px;
+      height: 12px;
+      background: radial-gradient(ellipse at center, #fff 0%, orange 60%, red 100%);
+      border-radius: 50%;
+      animation: flicker 0.3s infinite alternate;
+      opacity: 0.9;
+      pointer-events: none;
+      box-shadow: 0 0 8px 3px rgba(255, 165, 0, 0.6);
+    }
+
+    .flame.off {
+      animation: none;
+      opacity: 0;
+      box-shadow: none;
+    }
+
+    @keyframes flicker {
+      0% { transform: translateX(-50%) scale(1) rotate(0deg); opacity: 0.8; }
+      50% { transform: translateX(-50%) scale(1.1) rotate(5deg); opacity: 1; }
+      100% { transform: translateX(-50%) scale(0.95) rotate(-5deg); opacity: 0.7; }
+    }
+
+    #blowMsg {
+      font-size: 18px;
+      color: #ad1457;
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    #finalMessage {
+      display: none;
+      opacity: 0;
+      text-align: center;
+      color: #4a148c;
+      font-size: 1.7em;
+      margin-top: 30px;
+      max-width: 90%;
+      background: rgba(255, 255, 255, 0.85);
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+      transition: opacity 1s ease-in;
+    }
+
+    .balloon {
+      width: 30px;
+      height: 40px;
+      background: radial-gradient(circle, #ff6ec4, #7873f5);
+      border-radius: 50% 50% 50% 50%;
+      position: absolute;
+      bottom: -60px;
+      animation: float 8s linear infinite;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(100vh); opacity: 0; }
+      10% { opacity: 1; }
+      100% { transform: translateY(-120vh); opacity: 0; }
+    }
+
+    .sparkle {
+      width: 6px;
+      height: 6px;
+      background: gold;
+      border-radius: 50%;
+      position: absolute;
+      animation: sparkleAnim 2s infinite;
+    }
+
+    @keyframes sparkleAnim {
+      0%, 100% { opacity: 0; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.5); }
+    }
+
+    #musicBtn {
+      margin-top: 20px;
+      font-family: inherit;
+      background: #f48fb1;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 10px;
+      color: white;
+      font-size: 1em;
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 99;
+    }
+    #birthdayVideo {
+  margin-top: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    }
+  </style>
+</head>
+<body>
+  <div class="envelope" id="envelope">
+    <div class="envelope-text">Shipu Didi Namaste 🙏🏼<br>Click Here</div>
+  </div>
+
+  <div class="card hidden" id="card">
+    🎉 Chanda <br>Happy Birthday 🎂<br><br>
+    Tap to see your surprise cake!
+  </div>
+
+  <div class="cake-container hidden" id="cakeContainer">
+    <div class="cake">
+      <div class="candles">
+        <div class="candle"><div class="flame"></div></div>
+        <div class="candle"><div class="flame"></div></div>
+        <div class="candle"><div class="flame"></div></div>
+        <div class="candle"><div class="flame"></div></div>
+        <div class="candle"><div class="flame"></div></div>
+        <div class="candle"><div class="flame"></div></div>
+        <div class="candle"><div class="flame"></div></div>
+      </div>
+      <div class="layer layer3"></div>
+      <div class="layer layer2"></div>
+      <div class="layer layer1"></div>
+    </div>
+    <div id="blowMsg">🎤 phook 🙏🏼<br>Blow into the mic for a surprise!</div>
+  </div>
+
+  <div id="finalMessage">
+    ❤️ Chanda,gita 😁, Happy Birthday 🎂🎈<br><br>
+    Ab real cake to de nahi sakta, to socha virtual hi sahi.<br>
+    Isi ke sath khushi mana😄<br><br>
+    Tera dost – Rishu ❤️
+  </div>
+
+  <div id="videoCard" class="hidden card">
+  <video id="birthdayVideo" width="280" controls>
+    <source src="V9Birthda12_41_37.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+  </div>
+
+  <button id="musicBtn" onclick="document.getElementById('bgMusic').play()">🎵 Play Music</button>
+  <audio id="bgMusic" src="happy.mp3" loop></audio>
+  <audio id="fireworkSound" src="https://www.soundjay.com/explosion/explosion-01.mp3"></audio>
+  <canvas id="fireCanvas"></canvas>
+
+  <script>
+    const colors = ['#ff6ec4', '#7873f5', '#42a5f5', '#66bb6a', '#ffee58', '#ef5350'];
+    for (let i = 0; i < 20; i++) {
+      const b = document.createElement('div');
+      b.className = 'balloon';
+      b.style.left = Math.random() * 100 + 'vw';
+      b.style.animationDuration = (5 + Math.random() * 5) + 's';
+      b.style.background = `radial-gradient(circle, ${colors[Math.floor(Math.random() * colors.length)]}, #000)`;
+      document.body.appendChild(b);
+    }
+
+    for (let i = 0; i < 30; i++) {
+      const s = document.createElement('div');
+      s.className = 'sparkle';
+      s.style.top = Math.random() * 100 + 'vh';
+      s.style.left = Math.random() * 100 + 'vw';
+      s.style.animationDelay = (Math.random() * 2) + 's';
+      document.body.appendChild(s);
+    }
+
+    const envelope = document.getElementById('envelope');
+    const card = document.getElementById('card');
+    const cakeContainer = document.getElementById('cakeContainer');
+    const blowMsg = document.getElementById('blowMsg');
+    const finalMessage = document.getElementById('finalMessage');
+    const flames = document.querySelectorAll('.flame');
+    const fireworkSound = document.getElementById('fireworkSound');
+
+    let blowCount = 0;
+
+    envelope.addEventListener('click', () => {
+      envelope.classList.add('hidden');
+      card.classList.remove('hidden');
+    });
+
+    card.addEventListener('click', () => {
+      card.classList.add('hidden');
+      cakeContainer.classList.remove('hidden');
+      startMicDetection();
+    });
+
+    function startMicDetection() {
+      navigator.mediaDevices.getUserMedia({ audio: true })
+        .then(stream => {
+          const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+          const mic = audioContext.createMediaStreamSource(stream);
+          const analyser = audioContext.createAnalyser();
+          analyser.fftSize = 256;
+          mic.connect(analyser);
+          const dataArray = new Uint8Array(analyser.frequencyBinCount);
+
+          function detectBlow() {
+            analyser.getByteFrequencyData(dataArray);
+            const volume = dataArray.reduce((a, b) => a + b) / dataArray.length;
+            if (volume > 50) {
+              blowCount++;
+              if (blowCount === 1) extinguishSomeFlames();
+              else if (blowCount === 2) extinguishRemainingFlames();
+            }
+            requestAnimationFrame(detectBlow);
+          }
+
+          detectBlow();
+        })
+        .catch(() => {
+          blowMsg.textContent = '🎤 Please allow mic access!';
+        });
+    }
+
+    function extinguishSomeFlames() {
+      let indices = getRandomIndices(3);
+      let count = 0;
+      const interval = setInterval(() => {
+        if (count < indices.length) {
+          flames[indices[count]].classList.add('off');
+          count++;
+        } else clearInterval(interval);
+      }, 300);
+    }
+
+    function extinguishRemainingFlames() {
+      let remaining = Array.from(flames).map((_, i) => i).filter(i => !flames[i].classList.contains('off'));
+      let count = 0;
+      const interval = setInterval(() => {
+        if (count < remaining.length) {
+          flames[remaining[count]].classList.add('off');
+          count++;
+        } else {
+          clearInterval(interval);
+          blowMsg.style.display = 'none';
+          finalMessage.style.display = 'block';
+          setTimeout(() => {
+          finalMessage.style.opacity = 1;
+           }, 50);
+          showFireworks();
+          fireworkSound.play();
+        }
+      }, 300);
+    }
+
+    function getRandomIndices(count) {
+      const indices = [];
+      while (indices.length < count) {
+        let r = Math.floor(Math.random() * flames.length);
+        if (!indices.includes(r)) indices.push(r);
+      }
+      return indices;
+    }
+
+    function showFireworks() {
+      const canvas = document.getElementById('fireCanvas');
+      const ctx = canvas.getContext('2d');
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      const particles = [];
+
+      for (let i = 0; i < 100; i++) {
+        particles.push({
+          x: canvas.width / 2,
+          y: canvas.height / 2,
+          vx: Math.cos(i) * (Math.random() * 5),
+          vy: Math.sin(i) * (Math.random() * 5),
+          alpha: 1,
+          radius: Math.random() * 3 + 2
+        });
+      }
+
+      function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        particles.forEach(p => {
+          p.x += p.vx;
+          p.y += p.vy;
+          p.alpha -= 0.01;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(255, ${Math.random()*255}, ${Math.random()*255}, ${p.alpha})`;
+          ctx.fill();
+        });
+        if (particles.some(p => p.alpha > 0)) requestAnimationFrame(animate);
+      }
+
+      animate();
+    }
+  </script>
+</body>
+</html>
